@@ -1,5 +1,8 @@
 package com.time.dev.timetrack.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import java.util.Date;
 import lombok.Getter;
@@ -23,10 +26,12 @@ public class Timesheet {
     private String comments;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "role_user_id")
     private RoleUser roleUser;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "role_admin_id")
     private RoleAdmin roleAdmin;
 

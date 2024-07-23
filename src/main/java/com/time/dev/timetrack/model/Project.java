@@ -1,5 +1,8 @@
 package com.time.dev.timetrack.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import java.util.Set;
@@ -24,14 +27,13 @@ public class Project {
     private String status;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "admin_id")
     private RoleAdmin admin;
 
-    @OneToOne
-    @JoinColumn(name = "manager_id")
-    private RoleUser manager;
 
     @OneToMany(mappedBy = "project")
+    @JsonManagedReference
     private Set<RoleUser> users;
 
 }
