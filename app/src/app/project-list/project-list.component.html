@@ -1,1 +1,51 @@
-<p>project-list works!</p>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+    <li class="breadcrumb-item active">Projects</li>
+  </ol>
+</nav>
+
+<a [routerLink]="['/project/new']" mat-raised-button color="primary" style="float: right" id="add">Add Project</a>
+
+<h2>{{title}}</h2>
+@if (loading) {
+  <div>
+    <p>Loading...</p>
+  </div>
+} @else {
+  @if (feedback.message) {
+    <div class="alert alert-{{feedback.type}}">{{ feedback.message }}</div>
+  }
+  <table mat-table [dataSource]="projects">
+    <ng-container matColumnDef="projectTitle" >
+      <mat-header-cell *matHeaderCellDef> Project Title </mat-header-cell>
+      <mat-cell *matCellDef="let item"> {{ item.name }} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="description">
+      <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+      <mat-cell *matCellDef="let item"> {{ item.description }} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="users">
+      <mat-header-cell *matHeaderCellDef> Users </mat-header-cell>
+      <mat-cell *matCellDef="let item">
+        @for (user of item.users; track user) {
+          {{user.name }} - {{ user.position }}
+          <br/>
+        }
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="status">
+      <mat-header-cell *matHeaderCellDef> Project Status </mat-header-cell>
+      <mat-cell *matCellDef="let item"> {{ item.status }} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+      <mat-cell *matCellDef="let item">
+        <a [routerLink]="['../project', item.id ]" mat-raised-button color="accent">Edit</a>&nbsp;
+        <button (click)="delete(item)" mat-button color="warn"><mat-icon>delete</mat-icon></button>
+      </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </table>
+}

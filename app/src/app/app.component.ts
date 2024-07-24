@@ -1,29 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import {Project} from "./model/project";
-import {NgForOf} from "@angular/common";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HttpClientModule, NgForOf],
+  imports: [RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'TimeTrackr';
-  loading = true;
-  projects: Project[] = [];
-
-  constructor(private http: HttpClient) {
-  }
-
-  ngOnInit() {
-    this.loading = true;
-    this.http.get<Project[]>('/api/projects').subscribe((data: Project[]) => {
-      this.projects = data;
-      this.loading = false;
-    });
-  }
 }
