@@ -1,8 +1,6 @@
 package com.time.dev.timetrack.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -15,7 +13,6 @@ import lombok.Setter;
 @Entity
 public class RoleAdmin {
 
-    // Getters and Setters
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -31,16 +28,14 @@ public class RoleAdmin {
     private String position;
 
     @OneToMany(mappedBy = "roleAdmin")
-    @JsonManagedReference
+    @JsonManagedReference("roleAdmin-user")
     private Set<RoleUser> users;
 
     @OneToMany(mappedBy = "roleAdmin")
-    @JsonManagedReference
+    @JsonManagedReference("admin-timesheet")
     private Set<Timesheet> timesheets;
 
     @OneToMany(mappedBy = "admin")
-    @JsonManagedReference
-    @JsonIgnoreProperties("roleAdmin")
+    @JsonManagedReference("admin-project")
     private Set<Project> projects;
-
 }

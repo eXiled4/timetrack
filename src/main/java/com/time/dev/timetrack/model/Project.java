@@ -1,6 +1,5 @@
 package com.time.dev.timetrack.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
@@ -14,7 +13,6 @@ import lombok.Setter;
 @Entity
 public class Project {
 
-    // Getters and Setters
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,13 +25,11 @@ public class Project {
     private String status;
 
     @ManyToOne
-    @JsonBackReference
+    @JsonBackReference("admin-project")
     @JoinColumn(name = "admin_id")
     private RoleAdmin admin;
 
-
     @OneToMany(mappedBy = "project")
-    @JsonManagedReference
+    @JsonManagedReference("project-user")
     private Set<RoleUser> users;
-
 }

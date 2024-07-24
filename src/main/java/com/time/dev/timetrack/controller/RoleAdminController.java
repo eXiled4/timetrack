@@ -5,6 +5,8 @@ import com.time.dev.timetrack.repository.RoleAdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import jakarta.validation.Valid;
 import java.util.List;
@@ -28,7 +30,7 @@ public class RoleAdminController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping
+    @PostMapping(value = "/create", consumes = {"*/*"})
     public RoleAdmin createRoleAdmin(@Valid @RequestBody RoleAdmin roleAdmin) {
         return roleAdminRepository.save(roleAdmin);
     }

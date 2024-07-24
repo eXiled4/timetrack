@@ -28,7 +28,7 @@ public class ProjectController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping
+    @PostMapping(value = "/create", consumes = {"*/*"})
     public Project createProject(@Valid @RequestBody Project project) {
         return projectRepository.save(project);
     }

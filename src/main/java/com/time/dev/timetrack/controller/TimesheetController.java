@@ -29,7 +29,7 @@ public class TimesheetController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping
+    @PostMapping(value = "/create", consumes = {"*/*"})
     public Timesheet createTimesheet(@Valid @RequestBody Timesheet timesheet) {
         return timesheetRepository.save(timesheet);
     }

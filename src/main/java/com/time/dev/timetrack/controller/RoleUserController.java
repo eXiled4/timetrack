@@ -28,8 +28,9 @@ public class RoleUserController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping
-    public RoleUser createRoleUser(@Valid @RequestBody RoleUser roleUser) {
+    @PostMapping(value = "/create", consumes = {"*/*"})
+    public RoleUser createRoleUser(@RequestBody RoleUser roleUser) {
+        System.out.println("Debug POST");
         return roleUserRepository.save(roleUser);
     }
 
