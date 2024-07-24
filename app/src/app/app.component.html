@@ -72,10 +72,6 @@
     position: relative;
   }
 
-  .angular-logo {
-    max-width: 9.2rem;
-  }
-
   .content {
     display: flex;
     justify-content: space-around;
@@ -145,13 +141,6 @@
     margin-inline-start: 0.25rem;
   }
 
-  .social-links {
-    display: flex;
-    align-items: center;
-    gap: 0.73rem;
-    margin-top: 1.5rem;
-  }
-
   .social-links path {
     transition: fill 0.3s ease;
     fill: var(--gray-400);
@@ -189,6 +178,11 @@
         }
         @for (project of projects; track project) {
           <span class="pill">{{project.name}}</span>
+          <ul class="user-list">
+            @for (user of project.users; track user) {
+              <li>{{user.name}} - {{user.position}}</li>
+            }
+          </ul>
         }
       </div>
     </div>
