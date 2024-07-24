@@ -13,3 +13,7 @@ form, h2 {
 .full-width {
   width: 100%;
 }
+
+.field-spacing {
+  margin-right: 3px; /* Adjust as needed */
+}

@@ -10,7 +10,8 @@ import com.time.dev.timetrack.repository.RoleUserRepository;
 import com.time.dev.timetrack.repository.TimesheetRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 
 @Component
@@ -20,6 +21,8 @@ public class DataInitializer implements CommandLineRunner {
     private final RoleAdminRepository roleAdminRepository;
     private final ProjectRepository projectRepository;
     private final TimesheetRepository timesheetRepository;
+    private final Date oneDayBefore;
+    private final Date twoDaysBefore;
 
     public DataInitializer(RoleUserRepository roleUserRepository,
                            RoleAdminRepository roleAdminRepository,
@@ -29,34 +32,86 @@ public class DataInitializer implements CommandLineRunner {
         this.roleAdminRepository = roleAdminRepository;
         this.projectRepository = projectRepository;
         this.timesheetRepository = timesheetRepository;
+
+        LocalDate oneDay = LocalDate.now().minusDays(1);
+        this.oneDayBefore = Date.from(oneDay.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+        LocalDate twoDays = LocalDate.now().minusDays(2);
+        this.twoDaysBefore = Date.from(twoDays.atStartOfDay(ZoneId.systemDefault()).toInstant());
     }
 
     @Override
     public void run(String... args) {
-        RoleAdmin admin = new RoleAdmin();
-        admin.setName("Admin Name");
-        admin.setEmail("admin@example.com");
-        admin.setPosition("Administrator");
-        roleAdminRepository.save(admin);
+        RoleAdmin admin1 = new RoleAdmin();
+        admin1.setName("John Admin");
+        admin1.setEmail("johnadmin@example.com");
+        admin1.setPosition("Account Executive");
+        roleAdminRepository.save(admin1);
 
-        Project project = new Project();
-        project.setName("Project A");
-        project.setDescription("Description of Project A");
-        project.setStatus("Active");
-        project.setAdmin(admin);
-        projectRepository.save(project);
+        RoleAdmin admin2 = new RoleAdmin();
+        admin2.setName("Sally Admin");
+        admin2.setEmail("sallyadmin@example.com");
+        admin2.setPosition("Delivery Manager");
+        roleAdminRepository.save(admin2);
 
-        RoleUser user = new RoleUser();
-        user.setName("User Name");
-        user.setEmail("user@example.com");
-        user.setPosition("Developer");
-        user.setProject(project);
-        roleUserRepository.save(user);
+        Project project1 = new Project();
+        project1.setName("QLD Health");
+        project1.setDescription("CIMHA to unify various MH departments together");
+        project1.setStatus("Active");
+        project1.setAdmin(admin1);
+        projectRepository.save(project1);
 
-        Timesheet timesheet = new Timesheet();
-        timesheet.setDate(new Date());
-        timesheet.setHours(8);
-        timesheet.setComments("Worked on feature X");
-        timesheetRepository.save(timesheet);
+        Project project2 = new Project();
+        project2.setName("John Deere");
+        project2.setDescription("Integration between HR and Payroll system");
+        project2.setStatus("Planning");
+        project2.setAdmin(admin2);
+        projectRepository.save(project2);
+
+        RoleUser user1 = new RoleUser();
+        user1.setName("John User");
+        user1.setEmail("johnuser@example.com");
+        user1.setPosition("Developer");
+        user1.setProject(project1);
+        roleUserRepository.save(user1);
+
+        RoleUser user2 = new RoleUser();
+        user2.setName("Alice User");
+        user2.setEmail("alice.second@example.com");
+        user2.setPosition("Senior Database Administrator");
+        user2.setProject(project2);
+        roleUserRepository.save(user2);
+
+        Timesheet timesheet1a = new Timesheet();
+        timesheet1a.setDate(twoDaysBefore);
+        timesheet1a.setHours(8);
+        timesheet1a.setComments("Initial Project Setup");
+        timesheet1a.setRoleUser(user1);
+        timesheetRepository.save(timesheet1a);
+
+        Timesheet timesheet1b = new Timesheet();
+        timesheet1b.setDate(oneDayBefore);
+        timesheet1b.setHours(8);
+        timesheet1b.setComments("Worked on ticket CMHA-9090");
+        timesheet1b.setRoleUser(user1);
+        timesheetRepository.save(timesheet1b);
+
+        Timesheet timesheet2a = new Timesheet();
+        timesheet2a.setDate(twoDaysBefore);
+        timesheet2a.setHours(5);
+        timesheet2a.setComments("Requirements gathering");
+        timesheet2a.setRoleUser(user2);
+        timesheetRepository.save(timesheet2a);
+
+        Timesheet timesheet2b = new Timesheet();
+        timesheet2b.setDate(oneDayBefore);
+        timesheet2b.setHours(7);
+        timesheet2b.setComments("Analysis and architecture planning");
+        timesheet2b.setRoleUser(user2);
+        timesheetRepository.save(timesheet2b);
+
+//        System.out.println(timesheet2b.getId());
+//        System.out.println(timesheet2b.getRoleUser());
+//        System.out.println("Test timesheet2b output");
     }
 }

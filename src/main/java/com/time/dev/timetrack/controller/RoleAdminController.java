@@ -30,7 +30,7 @@ public class RoleAdminController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping(value = "/create", consumes = {"*/*"})
+    @PostMapping(value = "/", consumes = {"*/*"})
     public RoleAdmin createRoleAdmin(@Valid @RequestBody RoleAdmin roleAdmin) {
         return roleAdminRepository.save(roleAdmin);
     }

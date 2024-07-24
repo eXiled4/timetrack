@@ -67,7 +67,7 @@ export class ProjectEditComponent implements OnInit{
         this.feedback = {type: 'success', message: 'Save was successful!'};
         setTimeout(async () => {
           await this.router.navigate(['/projects']);
-        }, 1000);
+        }, 3000);
       },
       error: () => {
         this.feedback = {type: 'error', message: 'Try again later, error saving changes'}

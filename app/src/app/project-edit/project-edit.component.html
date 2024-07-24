@@ -34,13 +34,17 @@
     }
     @for (user of project.users; track user; let i = $index) {
       <div class="full-width">
-        <mat-form-field style="width: 35%">
+        <mat-form-field style="width: 33%" class="field-spacing">
           <mat-label>Consultant Name</mat-label>
           <input matInput [(ngModel)]="project.users[i].name" name="project.users[{{i}}].name" placeholder="name">
         </mat-form-field>
-        <mat-form-field style="width: 65%">
+        <mat-form-field style="width: 33%" class="field-spacing">
+          <mat-label>Consultant Email</mat-label>
+          <input matInput [(ngModel)]="project.users[i].email" name="project.users[{{i}}].email" placeholder="email">
+        </mat-form-field>
+        <mat-form-field style="width: 32.5%" class="field-spacing">
           <mat-label>Position</mat-label>
-          <input matInput [(ngModel)]="project.users[i].position" name="group.events[{{i}}].position" placeholder="position">
+          <input matInput [(ngModel)]="project.users[i].position" name="project.users[{{i}}].position" placeholder="position">
         </mat-form-field>
         <button mat-icon-button (click)="removeUser(i)" aria-label="Remove User"
                 style="float: right; margin: -70px -5px 0 0">
@@ -48,10 +52,10 @@
         </button>
       </div>
     }
-    <div class="button-row" role="group">
+    <div class="button-row" role="projects">
       @if (project.id) {
         <button type="button" mat-mini-fab color="accent" (click)="addUser()"
-                aria-label="Add Event" matTooltip="Add Event"
+                aria-label="Add User" matTooltip="Add User"
                 style="float: right; margin-top: -4px">
           <mat-icon>add</mat-icon>
         </button>
