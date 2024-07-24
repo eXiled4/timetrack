@@ -42,7 +42,6 @@ public class TimesheetController {
                     existingTimesheet.setHours(timesheet.getHours());
                     existingTimesheet.setComments(timesheet.getComments());
                     existingTimesheet.setRoleUser(timesheet.getRoleUser());
-                    existingTimesheet.setRoleAdmin(timesheet.getRoleAdmin());
                     return ResponseEntity.ok(timesheetRepository.save(existingTimesheet));
                 })
                 .orElse(ResponseEntity.notFound().build());

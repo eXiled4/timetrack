@@ -27,8 +27,4 @@ public class Timesheet {
     @JoinColumn(name = "role_user_id")
     private RoleUser roleUser;
 
-    @ManyToOne
-    @JsonBackReference("admin-timesheet")
-    @JoinColumn(name = "role_admin_id")
-    private RoleAdmin roleAdmin;
 }

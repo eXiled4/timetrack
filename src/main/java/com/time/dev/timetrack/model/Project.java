@@ -32,4 +32,5 @@ public class Project {
     @OneToMany(mappedBy = "project")
     @JsonManagedReference("project-user")
     private Set<RoleUser> users;
+
 }

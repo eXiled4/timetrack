@@ -29,11 +29,6 @@ public class RoleUser {
     private String position;
 
     @ManyToOne
-    @JsonBackReference("roleAdmin-user")
-    @JoinColumn(name = "role_admin_id")
-    private RoleAdmin roleAdmin;
-
-    @ManyToOne
     @JsonBackReference("project-user")
     @JoinColumn(name = "project_id")
     private Project project;

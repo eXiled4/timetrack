@@ -50,7 +50,6 @@ public class DataInitializer implements CommandLineRunner {
         user.setName("User Name");
         user.setEmail("user@example.com");
         user.setPosition("Developer");
-        user.setRoleAdmin(admin);
         user.setProject(project);
         roleUserRepository.save(user);
 
@@ -58,8 +57,6 @@ public class DataInitializer implements CommandLineRunner {
         timesheet.setDate(new Date());
         timesheet.setHours(8);
         timesheet.setComments("Worked on feature X");
-        timesheet.setRoleUser(user);
-        timesheet.setRoleAdmin(admin);
         timesheetRepository.save(timesheet);
     }
 }

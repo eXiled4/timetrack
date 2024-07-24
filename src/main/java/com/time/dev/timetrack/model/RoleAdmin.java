@@ -27,14 +27,6 @@ public class RoleAdmin {
     @NotBlank
     private String position;
 
-    @OneToMany(mappedBy = "roleAdmin")
-    @JsonManagedReference("roleAdmin-user")
-    private Set<RoleUser> users;
-
-    @OneToMany(mappedBy = "roleAdmin")
-    @JsonManagedReference("admin-timesheet")
-    private Set<Timesheet> timesheets;
-
     @OneToMany(mappedBy = "admin")
     @JsonManagedReference("admin-project")
     private Set<Project> projects;

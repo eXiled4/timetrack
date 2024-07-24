@@ -41,7 +41,6 @@ public class RoleUserController {
                     existingRoleUser.setName(roleUser.getName());
                     existingRoleUser.setEmail(roleUser.getEmail());
                     existingRoleUser.setPosition(roleUser.getPosition());
-                    existingRoleUser.setRoleAdmin(roleUser.getRoleAdmin());
                     existingRoleUser.setProject(roleUser.getProject());
                     return ResponseEntity.ok(roleUserRepository.save(existingRoleUser));
                 })
