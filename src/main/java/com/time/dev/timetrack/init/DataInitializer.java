@@ -56,7 +56,7 @@ public class DataInitializer implements CommandLineRunner {
 
         Project project1 = new Project();
         project1.setName("QLD Health");
-        project1.setDescription("CIMHA to unify various MH departments together");
+        project1.setDescription("MICHA to unify various MH departments together");
         project1.setStatus("Active");
         project1.setAdmin(admin1);
         projectRepository.save(project1);
@@ -83,7 +83,7 @@ public class DataInitializer implements CommandLineRunner {
         roleUserRepository.save(user2);
 
         RoleUser user3 = new RoleUser();
-        user3.setName("Peter Ball");
+        user3.setName("Peter User");
         user3.setEmail("peteruser@example.com");
         user3.setPosition("Database Administrator");
         user3.setProject(project2);
