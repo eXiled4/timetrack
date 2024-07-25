@@ -60,8 +60,9 @@
           <mat-icon>add</mat-icon>
         </button>
       }
-      <button type="submit" mat-raised-button color="primary" [disabled]="!editForm.form.valid" id="save">Save</button>
-      <button type="button" mat-button color="accent" (click)="cancel()" id="cancel">Cancel</button>
+      <button type="button" mat-raised-button color="primary" (click)="save()" [disabled]="!editForm.form.valid">Save Project</button>
+<!--      <button type="button" mat-raised-button color="secondary" (click)="saveUsers()" [disabled]="!editForm.form.valid">Save Users</button>-->
+      <button type="button" mat-button color="accent" (click)="cancel()">Cancel</button>
     </div>
   </form>
 }

@@ -34,7 +34,7 @@ export class ProjectListComponent {
   }
   delete(project: Project): void {
     if (confirm(`Are you sure you want to delete ${project.name}?`)) {
-      this.http.delete(`api/project/${project.id}`).subscribe({
+      this.http.delete(`api/projects/${project.id}`).subscribe({
         next: () => {
           this.feedback = {type: 'success', message: 'Delete was successful!'};
           setTimeout(() => {

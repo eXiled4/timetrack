@@ -10,7 +10,7 @@ import jakarta.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/role-users")
+@RequestMapping("/api/users")
 public class RoleUserController {
 
     @Autowired
@@ -30,7 +30,6 @@ public class RoleUserController {
 
     @PostMapping(value = "/", consumes = {"*/*"})
     public RoleUser createRoleUser(@RequestBody RoleUser roleUser) {
-        System.out.println("Debug POST");
         return roleUserRepository.save(roleUser);
     }
 

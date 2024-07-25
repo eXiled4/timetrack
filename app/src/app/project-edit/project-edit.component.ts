@@ -32,6 +32,7 @@ import {ProjectListComponent} from "../project-list/project-list.component";
 })
 export class ProjectEditComponent implements OnInit{
   project!: Project;
+  user!: User;
   feedback: any = {};
 
   constructor(private route: ActivatedRoute, private router: Router,
@@ -58,31 +59,91 @@ export class ProjectEditComponent implements OnInit{
     });
   }
 
+  // save() {
+  //   const id = this.project.id;
+  //   const method = id ? 'put' : 'post';
+  //
+  //   this.http[method](`/api/projects${id ? '/' + id : ''}`, this.project).subscribe({
+  //     next: () => {
+  //       this.feedback = {type: 'success', message: 'Save was successful!'};
+  //       setTimeout(async () => {
+  //         await this.router.navigate(['/projects']);
+  //       }, 2000);
+  //     },
+  //     error: () => {
+  //       this.feedback = {type: 'error', message: 'Try again later, error saving changes'}
+  //     }
+  //   });
+  // }
+
   save() {
     const id = this.project.id;
     const method = id ? 'put' : 'post';
+    const url = `/api/projects${id ? '/' + id : ''}`;
 
-    this.http[method](`/api/projects${id ? '/' + id : ''}`, this.project).subscribe({
+    // Prepare the project object, which includes nested users
+    const payload = {
+      ...this.project,
+      users: this.project.users.map(user => ({
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        position: user.position
+      }))
+    };
+
+    console.log("Sending payload:", payload);
+    // Send the entire project object to the backend, including user data
+    this.http[method](url, payload).subscribe({
       next: () => {
-        this.feedback = {type: 'success', message: 'Save was successful!'};
+        console.log("Save successful");
+        this.feedback = {type: 'success', message: 'Project and user data saved successfully!'};
         setTimeout(async () => {
           await this.router.navigate(['/projects']);
-        }, 3000);
+        }, 2000);
       },
-      error: () => {
-        this.feedback = {type: 'error', message: 'Try again later, error saving changes'}
+      error: error => {
+        console.error("Save error:", error);
+        this.feedback = {type: 'error', message: 'Error saving project and user data: ' + error.message};
       }
     });
   }
+
+
   async cancel(){
     await this.router.navigate(['/projects']);
   }
 
   addUser() {
     this.project.users.push(new User());
+    const newUser = new User();
+    this.http.post<User>('/api/users', newUser).subscribe({
+      next: (user) => {
+        this.project.users.push(user); // Add the user with data returned from the server, including ID
+        this.feedback = { type: 'success', message: 'User added successfully' };
+      },
+      error: (error) => {
+        this.feedback = { type: 'error', message: 'Failed to add user: ' + error.message };
+      }
+    });
   }
 
   removeUser(index: number){
     this.project.users.splice(index, 1);
+    const user = this.project.users[index];
+    if (user && user.id) {
+      this.http.delete(`/api/users/${user.id}`).subscribe({
+        next: () => {
+          this.project.users.splice(index, 1); // Only remove the user from the array if the delete was successful
+          this.feedback = { type: 'success', message: 'User removed successfully' };
+        },
+        error: (error) => {
+          this.feedback = { type: 'error', message: 'Failed to remove user: ' + error.message };
+        }
+      });
+    } else {
+      // If no ID, just remove from the local array (e.g., if it was a new unsaved user)
+      this.project.users.splice(index, 1);
+    }
   }
 }
