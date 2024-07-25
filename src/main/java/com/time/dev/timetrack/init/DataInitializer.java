@@ -90,8 +90,8 @@ public class DataInitializer implements CommandLineRunner {
         roleUserRepository.save(user3);
 
         RoleUser user4 = new RoleUser();
-        user4.setName("Alice User");
-        user4.setEmail("alice.second@example.com");
+        user4.setName("Jane User");
+        user4.setEmail("jane.doe@example.com");
         user4.setPosition("Senior Backend Developer");
         user4.setProject(project2);
         roleUserRepository.save(user4);
