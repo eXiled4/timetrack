@@ -4,7 +4,7 @@
     <li class="breadcrumb-item active">Projects</li>
   </ol>
 </nav>
-
+<div class="project-list-page">
 <a [routerLink]="['/project/new']" mat-raised-button color="primary" style="float: right" id="add">Add Project</a>
 <br/>
 <h2>{{title}}</h2>
@@ -17,6 +17,10 @@
     <div class="alert alert-{{feedback.type}}">{{ feedback.message }}</div>
   }
   <table mat-table [dataSource]="projects">
+    <ng-container matColumnDef="projectId" >
+      <mat-header-cell *matHeaderCellDef> Project ID </mat-header-cell>
+      <mat-cell *matCellDef="let item"> {{ 'XYZ-' + item.id }} </mat-cell>
+    </ng-container>
     <ng-container matColumnDef="projectTitle" >
       <mat-header-cell *matHeaderCellDef> Project Title </mat-header-cell>
       <mat-cell *matCellDef="let item"> {{ item.name }} </mat-cell>
@@ -49,3 +53,4 @@
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </table>
 }
+</div>

@@ -9,8 +9,10 @@ import {FormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatIconModule} from '@angular/material/icon';
-import {MatNativeDateModule} from '@angular/material/core';
+import {MatNativeDateModule, MatOption} from '@angular/material/core';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatSelect} from "@angular/material/select";
+import {NgFor, NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-project-edit',
@@ -24,7 +26,11 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatIconModule,
     MatNativeDateModule,
     MatTooltipModule,
-    RouterLink
+    RouterLink,
+    MatSelect,
+    MatOption,
+    NgIf,
+    NgFor
   ],
   templateUrl: './project-edit.component.html',
   styleUrl: './project-edit.component.css'
@@ -53,8 +59,8 @@ export class ProjectEditComponent implements OnInit{
         this.project = project;
         this.feedback = {};
       },
-      error: () => {
-        this.feedback = {type: 'warning', message: 'Try later, error loading'};
+      error: error => {
+        this.feedback = {type: 'warning', message: `Error loading project: ${error.statusText || 'Unknown error'}`};
       }
     });
   }
@@ -92,7 +98,7 @@ export class ProjectEditComponent implements OnInit{
         },
         error: error => {
           console.error("Save error:", error);
-          this.feedback = { type: 'error', message: 'Error saving project and user data: ' + error.message };
+          this.feedback = { type: 'error', message: 'Error saving project and user data, ensure all fields entered correctly'};
         }
       });
     }).catch(error => {

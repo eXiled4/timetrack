@@ -1,6 +1,6 @@
 /* https://careydevelopment.us/blog/angular-how-to-add-breadcrumbs-to-your-ui */
 ol.breadcrumb {
-  padding: 0;
+  padding: 0 2rem;
   list-style-type: none;
   margin: 5px 0 0 0;
 }
@@ -53,4 +53,33 @@ ol.breadcrumb li {
   color: #721c24;
   background-color: #f8d7da;
   border-color: #f5c6cb;
+}
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.7) url('assets/time.jpg') no-repeat center center fixed;
+  background-size: cover;
+  background-blend-mode: overlay;
+  position: relative;
+  z-index: 0;
+}
+
+html, body, app-root {
+  height: 100%;
+  width: 100%;
+}
+
+.content {
+  display: flex;
+  margin: 10px auto;
+  padding: 0 16px;
+  max-width: 960px;
+  flex-direction: column;
+  align-items: stretch;
+  min-height: calc(5vh - 64px);
+  position: relative;
+  z-index: 1;
+  background: transparent;
 }

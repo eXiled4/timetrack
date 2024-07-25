@@ -18,7 +18,7 @@ export class ProjectListComponent {
   title = 'Project List';
   loading = true;
   projects: Project[] = [];
-  displayedColumns = ['projectTitle', 'description', 'users', 'status', 'actions'];
+  displayedColumns = ['projectId', 'projectTitle', 'description', 'users', 'status', 'actions'];
   feedback: any = {};
 
   constructor(private http: HttpClient) {

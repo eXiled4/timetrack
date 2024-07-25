@@ -21,7 +21,7 @@ public class RoleUser {
     @NotBlank
     private String name;
 
-    @Email
+    @Email(message = "Email must be valid")
     @NotBlank
     private String email;
 

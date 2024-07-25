@@ -7,12 +7,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatIconModule } from '@angular/material/icon';
-import {MatLine, MatNativeDateModule} from '@angular/material/core';
+import {MatLine, MatNativeDateModule, MatOption} from '@angular/material/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import {NgForOf, NgIf, SlicePipe} from "@angular/common";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatList, MatListItem} from "@angular/material/list";
 import {MatCard, MatCardContent, MatCardTitle} from "@angular/material/card";
+import {MatSelect} from "@angular/material/select";
 
 @Component({
   selector: 'app-project-new',
@@ -36,7 +37,9 @@ import {MatCard, MatCardContent, MatCardTitle} from "@angular/material/card";
     MatCardTitle,
     MatCard,
     MatLine,
-    NgForOf
+    NgForOf,
+    MatSelect,
+    MatOption
   ],
   templateUrl: './project-new.component.html',
   styleUrl: './project-new.component.css'

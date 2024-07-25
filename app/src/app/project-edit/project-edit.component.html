@@ -7,66 +7,68 @@
 </nav>
 
 <h2>Project Information</h2>
-@if (feedback.message) {
-  <div class="alert alert-{{feedback.type}}">{{ feedback.message }}</div>
-}
-@if (project) {
-  <form #editForm="ngForm" (ngSubmit)="save()">
-    @if (project.id) {
-      <mat-form-field class="full-width">
-        <mat-label>ID</mat-label>
-        <input matInput [value]="'XYZ-' + project.id" id="id" name="id" placeholder="ID" readonly
-               matTooltip="ID cannot be edited" matTooltipPosition="above">
+<div *ngIf="feedback.message" class="alert alert-{{feedback.type}}">
+  {{ feedback.message }}
+</div>
+<form #editForm="ngForm" (ngSubmit)="save()" *ngIf="project">
+  <div *ngIf="project.id">
+    <mat-form-field class="full-width">
+      <mat-label>ID</mat-label>
+      <input matInput [value]="'XYZ-' + project.id" id="id" name="id" placeholder="ID" readonly
+             matTooltip="ID cannot be edited" matTooltipPosition="above">
+    </mat-form-field>
+  </div>
+  <mat-form-field class="full-width">
+    <mat-label>Name</mat-label>
+    <input matInput [(ngModel)]="project.name" id="name" name="name" placeholder="Name" required>
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <mat-label>Description</mat-label>
+    <input matInput [(ngModel)]="project.description" id="description" name="description" placeholder="Description" required>
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <mat-label>Status</mat-label>
+    <mat-select [(ngModel)]="project.status" id="status" name="status" required>
+      <mat-option value="Proposal">Proposal</mat-option>
+      <mat-option value="Planned">Planned</mat-option>
+      <mat-option value="Active">Active</mat-option>
+      <mat-option value="On Hold">On Hold</mat-option>
+      <mat-option value="Completed">Completed</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div *ngIf="project.users.length">
+    <h3>Users</h3>
+    <div *ngFor="let user of project.users; let i = index" class="full-width">
+      <mat-form-field style="width: 33%" class="field-spacing">
+        <mat-label>Consultant Name</mat-label>
+        <input matInput [(ngModel)]="user.name" name="project.users[{{i}}].name" placeholder="name">
       </mat-form-field>
-    }
-    <mat-form-field class="full-width">
-      <mat-label>Name</mat-label>
-      <input matInput [(ngModel)]="project.name" id="name" name="name" placeholder="Name" required>
-    </mat-form-field>
-
-    <mat-form-field class="full-width">
-      <mat-label>Description</mat-label>
-      <input matInput [(ngModel)]="project.description" id="description" name="description" placeholder="Description" required>
-    </mat-form-field>
-
-    <mat-form-field class="full-width">
-      <mat-label>Status</mat-label>
-      <input matInput [(ngModel)]="project.status" id="status" name="status" placeholder="Status" required>
-    </mat-form-field>
-
-    @if (project.users.length) {
-      <h3>Users</h3>
-    }
-    @for (user of project.users; track user; let i = $index) {
-      <div class="full-width">
-        <mat-form-field style="width: 33%" class="field-spacing">
-          <mat-label>Consultant Name</mat-label>
-          <input matInput [(ngModel)]="project.users[i].name" name="project.users[{{i}}].name" placeholder="name">
-        </mat-form-field>
-        <mat-form-field style="width: 33%" class="field-spacing">
-          <mat-label>Consultant Email</mat-label>
-          <input matInput [(ngModel)]="project.users[i].email" name="project.users[{{i}}].email" placeholder="email">
-        </mat-form-field>
-        <mat-form-field style="width: 32.5%" class="field-spacing">
-          <mat-label>Position</mat-label>
-          <input matInput [(ngModel)]="project.users[i].position" name="project.users[{{i}}].position" placeholder="position">
-        </mat-form-field>
-        <button mat-icon-button (click)="removeUser(i)" aria-label="Remove User"
-                style="float: right; margin: -70px -5px 0 0">
-          <mat-icon>delete</mat-icon>
-        </button>
-      </div>
-    }
-    <div class="button-row" role="projects">
-      @if (project.id) {
-        <button type="button" mat-mini-fab color="accent" (click)="addUser()"
-                aria-label="Add User" matTooltip="Add User"
-                style="float: right; margin-top: -4px">
-          <mat-icon>add</mat-icon>
-        </button>
-      }
-      <button type="button" mat-raised-button color="primary" (click)="save()" [disabled]="!editForm.form.valid">Save Project</button>
-      <button type="button" mat-button color="accent" (click)="cancel()">Cancel</button>
+      <mat-form-field style="width: 33%" class="field-spacing">
+        <mat-label>Consultant Email</mat-label>
+        <input matInput [(ngModel)]="user.email" name="project.users[{{i}}].email" placeholder="email">
+      </mat-form-field>
+      <mat-form-field style="width: 32.5%" class="field-spacing">
+        <mat-label>Position</mat-label>
+        <input matInput [(ngModel)]="user.position" name="project.users[{{i}}].position" placeholder="position">
+      </mat-form-field>
+      <button mat-icon-button (click)="removeUser(i)" aria-label="Remove User"
+              style="float: right; margin: -70px -5px 0 0">
+        <mat-icon>delete</mat-icon>
+      </button>
     </div>
-  </form>
-}
+  </div>
+  <div class="button-row" role="projects">
+    <div *ngIf="project.id">
+      <button type="button" mat-mini-fab color="accent" (click)="addUser()"
+              aria-label="Add User" matTooltip="Add User"
+              style="float: right; margin-top: -4px">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+    <button type="submit" mat-raised-button color="primary" [disabled]="!editForm.form.valid">Save Project</button>
+    <button type="button" mat-button color="accent" (click)="cancel()">Cancel</button>
+  </div>
+</form>
