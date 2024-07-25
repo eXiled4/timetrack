@@ -6,3 +6,17 @@
   flex-direction: column;
   align-items: stretch;
 }
+
+.spacer {
+  flex: 1 0 auto
+}
+
+.icon-space {
+  margin-right: 0.7rem;
+}
+
+a.icon-space {
+  text-decoration: none;
+  color: inherit;
+}
+
