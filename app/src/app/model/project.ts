@@ -12,7 +12,6 @@ export class Project {
     this.name = project?.name || '';
     this.description = project?.description || '';
     this.status = project?.status || '';
-    // this.users = project.users?.map(user => new User(user)) || [];
     this.users = project?.users || [];
   }
 }

@@ -15,7 +15,7 @@
     @if (project.id) {
       <mat-form-field class="full-width">
         <mat-label>ID</mat-label>
-        <input matInput [(ngModel)]="project.id" id="id" name="id" placeholder="ID" readonly
+        <input matInput [value]="'XYZ-' + project.id" id="id" name="id" placeholder="ID" readonly
                matTooltip="ID cannot be edited" matTooltipPosition="above">
       </mat-form-field>
     }
@@ -27,6 +27,11 @@
     <mat-form-field class="full-width">
       <mat-label>Description</mat-label>
       <input matInput [(ngModel)]="project.description" id="description" name="description" placeholder="Description" required>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Status</mat-label>
+      <input matInput [(ngModel)]="project.status" id="status" name="status" placeholder="Status" required>
     </mat-form-field>
 
     @if (project.users.length) {

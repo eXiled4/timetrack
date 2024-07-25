@@ -1,17 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { map, of, switchMap } from 'rxjs';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
+import {lastValueFrom, map, of, switchMap} from 'rxjs';
 import {Project} from "../model/project";
 import {User} from "../model/user";
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { MatInputModule } from '@angular/material/input';
-import { FormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatIconModule } from '@angular/material/icon';
-import { MatNativeDateModule } from '@angular/material/core';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import {ProjectListComponent} from "../project-list/project-list.component";
+import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {MatInputModule} from '@angular/material/input';
+import {FormsModule} from '@angular/forms';
+import {MatButtonModule} from '@angular/material/button';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatIconModule} from '@angular/material/icon';
+import {MatNativeDateModule} from '@angular/material/core';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-project-edit',
@@ -66,7 +65,7 @@ export class ProjectEditComponent implements OnInit{
 
     // First, delete users that were removed
     const deleteRequests = this.usersToDelete.map(user =>
-      this.http.delete(`/api/users/${user.id}`).toPromise()
+      lastValueFrom(this.http.delete(`/api/users/${user.id}`))
     );
 
     Promise.all(deleteRequests).then(() => {

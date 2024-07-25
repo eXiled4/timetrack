@@ -79,8 +79,22 @@ public class DataInitializer implements CommandLineRunner {
         user2.setName("Alice User");
         user2.setEmail("alice.second@example.com");
         user2.setPosition("Senior Database Administrator");
-        user2.setProject(project2);
+        user2.setProject(project1);
         roleUserRepository.save(user2);
+
+        RoleUser user3 = new RoleUser();
+        user3.setName("Peter Ball");
+        user3.setEmail("peteruser@example.com");
+        user3.setPosition("Database Administrator");
+        user3.setProject(project2);
+        roleUserRepository.save(user3);
+
+        RoleUser user4 = new RoleUser();
+        user4.setName("Alice User");
+        user4.setEmail("alice.second@example.com");
+        user4.setPosition("Senior Backend Developer");
+        user4.setProject(project2);
+        roleUserRepository.save(user4);
 
         Timesheet timesheet1a = new Timesheet();
         timesheet1a.setDate(twoDaysBefore);
@@ -109,9 +123,5 @@ public class DataInitializer implements CommandLineRunner {
         timesheet2b.setComments("Analysis and architecture planning");
         timesheet2b.setRoleUser(user2);
         timesheetRepository.save(timesheet2b);
-
-//        System.out.println(timesheet2b.getId());
-//        System.out.println(timesheet2b.getRoleUser());
-//        System.out.println("Test timesheet2b output");
     }
 }

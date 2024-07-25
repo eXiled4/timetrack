@@ -11,21 +11,6 @@
   {{ feedback.message }}
 </div>
 
-<!--<div class="projects-list">-->
-<!--  <mat-card class="full-width">-->
-<!--    <mat-card-title>Existing Projects</mat-card-title>-->
-<!--    <mat-card-content>-->
-<!--      <mat-list>-->
-<!--        <mat-list-item *ngFor="let project of projects">-->
-<!--          <h3 matLine>{{ project.name }}</h3>-->
-<!--          <p matLine>Status: {{ project.status }}</p>-->
-<!--          <p matLine>Description: {{ project.description | slice:0:50 }}...</p>-->
-<!--        </mat-list-item>-->
-<!--      </mat-list>-->
-<!--    </mat-card-content>-->
-<!--  </mat-card>-->
-<!--</div>-->
-
 <form (ngSubmit)="save()">
   <mat-form-field appearance="fill" class="full-width">
     <mat-label>Project Name</mat-label>

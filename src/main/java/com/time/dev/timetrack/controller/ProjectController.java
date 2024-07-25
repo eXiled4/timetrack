@@ -68,14 +68,14 @@ public class ProjectController {
         return roleUsers.stream()
                 .map(roleUser -> {
                     if (roleUser.getId() == null || !roleUserRepository.existsById(roleUser.getId())) {
-                        return roleUserRepository.save(roleUser); // Save new if not found
+                        return roleUserRepository.save(roleUser);
                     } else {
                         RoleUser existingRoleUser = roleUserRepository.findById(roleUser.getId()).orElse(null);
                         if (existingRoleUser != null) {
                             existingRoleUser.setName(roleUser.getName());
                             existingRoleUser.setEmail(roleUser.getEmail());
                             existingRoleUser.setPosition(roleUser.getPosition());
-                            existingRoleUser.setProject(roleUser.getProject()); // Ensure project linkage
+                            existingRoleUser.setProject(roleUser.getProject());
                             return roleUserRepository.save(existingRoleUser);
                         }
                         return null;
